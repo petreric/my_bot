@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+    </gazebo>
+
+    <ros2_control name="RobotSystem" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+
+        <joint_state_controller name="joint_state_controller" type="joint_state_controller/JointStateController">
+            <joint name="left_wheel_joint"/>
+            <joint name="right_wheel_joint"/>
+        </joint_state_controller>
+
+        <controller name="diff_drive_controller" type="diff_drive_controller/DiffDriveController">
+            <left_wheel name="left_wheel_joint"/>
+            <right_wheel name="right_wheel_joint"/>
+            <publish_rate>50</publish_rate>
+            <velocity_rolling_window_size>10</velocity_rolling_window_size>
+        </controller>
+    </ros2_control>
+
+</robot>
